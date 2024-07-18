@@ -26,6 +26,7 @@ interface PokemonData {
 function App() {
   const [pokemons, setPokemons] = useState<Pokemons[]>([])
   const [pokemonData, setPokemonData] = useState<PokemonData[]>([])
+  const [pokemonFiltered, setPokemonFiltered] = useState<PokemonData[]>([])
 
   useEffect(() => {
     fetch('https://pokeapi.co/api/v2/pokemon?limit=10')
@@ -33,12 +34,23 @@ function App() {
       .then((data) => setPokemons(data.results))
   }, [])
   useEffect(() => {
-    pokemons.map((pokemon) => {
+    pokemons.forEach((pokemon) => {
       fetch(pokemon.url)
         .then((response) => response.json())
-        .then((poke) => setPokemonData(pokemonData => [...pokemonData, poke]))
+        .then((poke) => {
+          setPokemonData(prevData => [...prevData, poke])
+          setPokemonFiltered(prevData => [...prevData, poke])
+        })
     })
   }, [pokemons])
+
+  const filterPokemonByType = (type: string) => {
+    const filtered = pokemonData.filter((data) =>
+      data.types.some((t) => t.type.name === type)
+    )
+    setPokemonFiltered(filtered);
+  }
+
   return (
     <>
       <h1>Pokemon</h1>
@@ -47,26 +59,32 @@ function App() {
         Filter: 
         <button 
           className="button grass" 
-          onClick={() => setPokemonData([])}
+          onClick={() => filterPokemonByType('grass')}
         >
           Grass
         </button>
         <button 
           className="button fire" 
-          onClick={() => setPokemonData([])}
+          onClick={() => filterPokemonByType('fire')}
         >
           Fire
         </button>
         <button 
           className="button water" 
-          onClick={() => setPokemonData([])}
+          onClick={() => filterPokemonByType('water')}
         >
           Water
+        </button>
+        <button
+          className="button all"
+          onClick={() => setPokemonFiltered(pokemonData)}
+        >
+          All
         </button>
       </header>
       <ul className='container'>
         {
-          pokemonData && pokemonData.sort((a, b) => a.id - b.id).map((data) => (
+          pokemonFiltered && pokemonFiltered.sort((a, b) => a.id - b.id).map((data) => (
             <li key={data.name} className='card'>
               <picture>
                 <img src={data.sprites.front_default} alt={data.name} />

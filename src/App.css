@@ -60,3 +60,12 @@ button {
 .water:hover {
   background-color: #60abe8;
 }
+
+.all {
+  background-color: #fff;
+  color: #000;
+}
+
+.all:hover {
+  background-color: #ccc;
+}
