@@ -70,7 +70,7 @@ button {
   width: 100px;
   border: none;
   border-radius: 5px;
-  font-size: 1em !important;
+  font-size: 1em;
   color: #fff;
   cursor: pointer;
 }
@@ -117,5 +117,27 @@ button {
 
   .nav {
     flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  button {
+    font-size: 0.9em;
+  }
+  .card {
+    width: 100%;
+  }
+}
+
+@media (max-width: 375px) {
+  .nav {
+    margin: 12px;
+    padding: 0.5em;
+  }
+  button {
+    font-size: 0.8em;
+  }
+  .card {
+    width: 100%;
   }
 }
