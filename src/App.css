@@ -1,26 +1,54 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
   padding: 2rem;
   text-align: center;
   background-color: #000;
+}
+
+.main-container {
+  min-height: 100vh;
+  min-width: 100%;
+  color: #fff;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em;
+  background-color: #333;
+}
+
+.filter-text {
+  font-size: 1.4em;
 }
 
 .container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-
+  gap: 1em;
 }
 
 .card {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   margin: 1em;
-  padding: 2em;
-  width: 300px;
+  padding: 1em;
+  gap: 1em;
+  width: 250px;
   border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 5px 5px 20px rgba(206, 30, 30, 1);
+  text-transform: capitalize;
+  text-align: left; 
   background-color: #fff;
   color: #000;
+}
+
+picture {
+  padding: 0;
 }
 
 ul {
@@ -31,8 +59,11 @@ ul {
 button {
   padding: 0.5em 1em;
   margin: 1em;
+  height: 40px;
   width: 100px;
   border: none;
+  border-radius: 5px;
+  font-size: 1em !important;
   color: #fff;
   cursor: pointer;
 }

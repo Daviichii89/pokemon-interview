@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import './App.css'
+import PokemonList from './components/PokemonList'
+import FilterNav from './components/FilterNav'
 
 interface Pokemons {
   name: string
@@ -52,54 +54,17 @@ function App() {
   }
 
   return (
-    <>
+    <div className='main-container'>
       <h1>Pokemon</h1>
-      <h2>List of Pokemons</h2>
-      <header>
-        Filter: 
-        <button 
-          className="button grass" 
-          onClick={() => filterPokemonByType('grass')}
-        >
-          Grass
-        </button>
-        <button 
-          className="button fire" 
-          onClick={() => filterPokemonByType('fire')}
-        >
-          Fire
-        </button>
-        <button 
-          className="button water" 
-          onClick={() => filterPokemonByType('water')}
-        >
-          Water
-        </button>
-        <button
-          className="button all"
-          onClick={() => setPokemonFiltered(pokemonData)}
-        >
-          All
-        </button>
-      </header>
+      <FilterNav 
+        filterPokemonByType={filterPokemonByType}
+        setPokemonFiltered={setPokemonFiltered}
+        pokemonData={pokemonData}
+      />
       <ul className='container'>
-        {
-          pokemonFiltered && pokemonFiltered.sort((a, b) => a.id - b.id).map((data) => (
-            <li key={data.name} className='card'>
-              <picture>
-                <img src={data.sprites.front_default} alt={data.name} />
-              </picture>
-              <section>
-                <p>Name: {data.name}</p>
-                <p>Height: {data.height}</p>
-                <p>Weight: {data.weight}</p>
-                <p>Types: {data.types.map((type) => type.type.name).join(', ')}</p>
-              </section>
-            </li>
-          ))
-        }
+        <PokemonList pokemonFiltered={pokemonFiltered} />
       </ul>
-    </>
+    </div>
   )
 }
 
