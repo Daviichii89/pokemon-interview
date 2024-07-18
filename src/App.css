@@ -1,0 +1,62 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  background-color: #000;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+}
+
+.card {
+  display: flex;
+  margin: 1em;
+  padding: 2em;
+  width: 300px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  color: #000;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+button {
+  padding: 0.5em 1em;
+  margin: 1em;
+  width: 100px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+.grass {
+  background-color: #4CAF50;
+}
+
+.fire {
+  background-color: #F44336;
+}
+
+.water {
+  background-color: #2196F3;
+}
+
+.grass:hover {
+  background-color: #78d57b;
+}
+
+.fire:hover {
+  background-color: #d86159;
+}
+
+.water:hover {
+  background-color: #60abe8;
+}
