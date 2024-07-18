@@ -107,3 +107,15 @@ button {
 .all:hover {
   background-color: #ccc;
 }
+
+@media (max-width: 768px) {
+  
+
+  .card {
+    width: 100%;
+  }
+
+  .nav {
+    flex-direction: column;
+  }
+}
