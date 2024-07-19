@@ -109,6 +109,11 @@ button {
   background-color: #ccc;
 }
 
+.loading-image {
+  width: 200px;
+  height: auto;
+}
+
 @media (max-width: 768px) {
   
 

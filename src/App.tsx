@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import './App.css'
 import PokemonList from './components/PokemonList'
 import FilterNav from './components/FilterNav'
+import Loading from './components/Loading'
 
 interface Pokemons {
   name: string
@@ -34,9 +35,12 @@ function App() {
   const observer = useRef<IntersectionObserver | null>(null)
   useEffect(() => {
     setLoading(true)
-    fetch(`https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=10`)
-      .then((response) => response.json())
-      .then((data) => setPokemons(data.results))
+    setTimeout(() => {
+      fetch(`https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=10`)
+        .then((response) => response.json())
+        .then((data) => setPokemons(data.results))
+      setLoading(false)
+    }, 1000)
   }, [offset])
   useEffect(() => {
     pokemons.forEach((pokemon) => {
@@ -47,7 +51,6 @@ function App() {
           setPokemonFiltered(prevData => [...prevData, poke])
         })
     })
-    setLoading(false)
   }, [pokemons])
   useEffect(() => {
     const handleScroll = () => {
@@ -90,7 +93,7 @@ function App() {
       <ul className='container'>
         <PokemonList pokemonFiltered={pokemonFiltered} lastElementRef={lastElementRef} />
       </ul>
-      {loading && <h2>Loading...</h2>}
+      {loading && <Loading />}
     </div>
   )
 }
