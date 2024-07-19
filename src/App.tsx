@@ -32,34 +32,36 @@ function App() {
   const [pokemonFiltered, setPokemonFiltered] = useState<PokemonData[]>([])
   const [offset, setOffset] = useState(0)
   const [loading, setLoading] = useState(false)
+  const [filterType, setFilterType] = useState<string>('')
   const observer = useRef<IntersectionObserver | null>(null)
   useEffect(() => {
     setLoading(true)
-    setTimeout(() => {
-      fetch(`https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=10`)
-        .then((response) => response.json())
-        .then((data) => setPokemons(data.results))
-      setLoading(false)
-    }, 1000)
+    fetch(`https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=10`)
+      .then((response) => response.json())
+      .then((data) => setPokemons(data.results))
   }, [offset])
   useEffect(() => {
-    pokemons.forEach((pokemon) => {
-      fetch(pokemon.url)
-        .then((response) => response.json())
-        .then((poke) => {
-          setPokemonData(prevData => [...prevData, poke])
-          setPokemonFiltered(prevData => [...prevData, poke])
-        })
-    })
-  }, [pokemons])
-  useEffect(() => {
-    const handleScroll = () => {
-        if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight || loading) return
-        setOffset(prevOffset => prevOffset + 10)
-    }
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [loading])
+    setTimeout(() => {
+      pokemons.forEach((pokemon) => {
+        fetch(pokemon.url)
+          .then((response) => response.json())
+          .then((poke) => {
+            setPokemonData(prevData => {
+              const newData = [...prevData, poke]
+              setPokemonFiltered(
+                filterType
+                  ? newData.filter((data) =>
+                    data.types.some((t:any) => t.type.name === filterType)
+                  )
+                  : newData
+              )
+              return newData
+            })
+          })
+          .finally(() => setLoading(false))
+      })
+    }, 500)
+  }, [pokemons, filterType])
   const loadMore = useCallback(() => {
     if (!loading) {
       setOffset(prevOffset => prevOffset + 10)
@@ -77,10 +79,7 @@ function App() {
   }
   , [loading, loadMore])
   const filterPokemonByType = (type: string) => {
-    const filtered = pokemonData.filter((data) =>
-      data.types.some((t) => t.type.name === type)
-    )
-    setPokemonFiltered(filtered);
+    setFilterType(type);
   }
   return (
     <div className='main-container'>
