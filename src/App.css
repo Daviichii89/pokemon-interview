@@ -30,6 +30,7 @@
 }
 
 .card {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -47,6 +48,26 @@
   color: #000;
   cursor: pointer;
   transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0.5) 0%,
+    rgba(255, 255, 255, 0.7) 50%,
+    rgba(255, 255, 255, 0.5) 100%
+  );
+  transform: translateX(-100%) translateY(-100%) rotate(45deg);
+  opacity: 0;
+  animation: shine 3s infinite;
+  pointer-events: none;
 }
 
 .card:hover {
@@ -299,5 +320,20 @@ button {
   }
   .card {
     width: 100%;
+  }
+}
+
+@keyframes shine {
+  0% {
+    transform: translateX(-150%) translateY(-150%) rotate(45deg);
+    opacity: 0;
+  }
+  50% {
+    transform: translateX(50%) translateY(50%) rotate(45deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(150%) translateY(150%) rotate(45deg);
+    opacity: 0;
   }
 }
