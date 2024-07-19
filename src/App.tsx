@@ -29,12 +29,13 @@ function App() {
   const [pokemons, setPokemons] = useState<Pokemons[]>([])
   const [pokemonData, setPokemonData] = useState<PokemonData[]>([])
   const [pokemonFiltered, setPokemonFiltered] = useState<PokemonData[]>([])
+  const [offset, setOffset] = useState(0)
 
   useEffect(() => {
-    fetch('https://pokeapi.co/api/v2/pokemon?limit=10')
+    fetch(`https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=10`)
       .then((response) => response.json())
       .then((data) => setPokemons(data.results))
-  }, [])
+  }, [offset])
   useEffect(() => {
     pokemons.forEach((pokemon) => {
       fetch(pokemon.url)
@@ -64,6 +65,7 @@ function App() {
       <ul className='container'>
         <PokemonList pokemonFiltered={pokemonFiltered} />
       </ul>
+      <button onClick={() => setOffset(offset + 10)}>Next</button>
     </div>
   )
 }
