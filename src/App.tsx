@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import './App.css'
 import PokemonList from './components/PokemonList'
 import FilterNav from './components/FilterNav'
@@ -31,6 +31,7 @@ function App() {
   const [pokemonFiltered, setPokemonFiltered] = useState<PokemonData[]>([])
   const [offset, setOffset] = useState(0)
   const [loading, setLoading] = useState(false)
+  const observer = useRef<IntersectionObserver | null>(null)
   useEffect(() => {
     setLoading(true)
     fetch(`https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=10`)
@@ -56,6 +57,22 @@ function App() {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [loading])
+  const loadMore = useCallback(() => {
+    if (!loading) {
+      setOffset(prevOffset => prevOffset + 10)
+    }
+  }, [loading])
+  const lastElementRef = useCallback((node: any) => {
+    if (loading) return
+    if (observer.current) observer.current.disconnect()
+    observer.current = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        loadMore()
+      }
+    })
+    if (node) observer.current.observe(node)
+  }
+  , [loading, loadMore])
   const filterPokemonByType = (type: string) => {
     const filtered = pokemonData.filter((data) =>
       data.types.some((t) => t.type.name === type)
@@ -70,10 +87,10 @@ function App() {
         setPokemonFiltered={setPokemonFiltered}
         pokemonData={pokemonData}
       />
-    
       <ul className='container'>
-        <PokemonList pokemonFiltered={pokemonFiltered} />
+        <PokemonList pokemonFiltered={pokemonFiltered} lastElementRef={lastElementRef} />
       </ul>
+      {loading && <h2>Loading...</h2>}
     </div>
   )
 }
