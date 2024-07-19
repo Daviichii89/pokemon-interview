@@ -71,6 +71,7 @@ button {
   border: none;
   border-radius: 5px;
   font-size: 1em;
+  background-color: #2196F3;
   color: #fff;
   cursor: pointer;
 }
