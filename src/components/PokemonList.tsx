@@ -32,14 +32,21 @@ const PokemonList: React.FC<PokemonListProps> = ({pokemonFiltered, lastElementRe
               key={data.name}
               className='card'
             >
+              <div className='pokemon-id'>#{data.id}</div>
               <picture>
                 <img src={data.sprites.front_default} alt={data.name} />
-                <p>{data.types.map((type) => type.type.name).join(' ')}</p>
               </picture>
-              <section>
-                <p>Name: {data.name}</p>
-                <p>Height: {data.height}</p>
-                <p>Weight: {data.weight}</p>
+              <div className='types'>
+                {
+                  data.types.map((type) => (
+                    <div className={`type ${type.type.name}`}>{type.type.name}</div>
+                  )
+              )}
+              </div>
+              <section className='details'>
+                <div><p>Name: </p><p>{data.name}</p></div>
+                <div><p>Height: </p><p>{data.height}</p></div>
+                <div><p>Weight: </p><p>{data.weight}</p></div>
               </section>
             </li>
           )) 

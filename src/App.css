@@ -37,7 +37,7 @@
   margin: 1em;
   padding: 1em;
   gap: 1em;
-  width: 250px;
+  width: 300px;
   border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 5px 5px 10px rgba(206, 30, 30, 1);
@@ -54,8 +54,29 @@
   transform: scale(1.05);
 }
 
+.pokemon-id {
+  width: 100%;
+  font-size: 1.6em;
+  font-weight: bold;
+  text-align: left;
+}
+
 picture {
   padding: 0;
+}
+
+.types {
+  display: flex;
+  justify-content: center;
+  gap: 0.5em;
+}
+
+.type {
+  width: 100px;
+  padding: 0.5em;
+  border-radius: 5px;
+  text-align: center;
+  color: #fff;
 }
 
 ul {
@@ -63,12 +84,25 @@ ul {
   padding: 0;
 }
 
+.details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.details div {
+  width: 50%;
+  text-align: center;
+  border: 1px solid #000;
+}
+
 button {
   padding: 0.5em 1em;
   margin: 1em;
   height: 40px;
   width: 100px;
-  border: none;
+  border: 4px double #fff;
   border-radius: 5px;
   font-size: 1em;
   background-color: #2196F3;
@@ -88,6 +122,66 @@ button {
   background-color: #2196F3;
 }
 
+.poison {
+  background-color: #9b69da;
+}
+
+.flying {
+  background-color: #90e0ef;
+}
+
+.bug {
+  background-color: #a8b820;
+}
+
+.normal {
+  background-color: #a8a878;
+}
+
+.electric {
+  background-color: #f8d030;
+}
+
+.ground {
+  background-color: #e0c068;
+}
+
+.fairy {
+  background-color: #ee99ac;
+}
+
+.fighting {
+  background-color: #c03028;
+}
+
+.psychic {
+  background-color: #f85888;
+}
+
+.rock {
+  background-color: #b8a038;
+}
+
+.steel {
+  background-color: #b8b8d0;
+}
+
+.ice {
+  background-color: #98d8d8;
+}
+
+.ghost {
+  background-color: #705898;
+}
+
+.dragon {
+  background-color: #7038f8;
+}
+
+.dark {
+  background-color: #705848;
+}
+
 .grass:hover {
   background-color: #78d57b;
 }
@@ -98,6 +192,66 @@ button {
 
 .water:hover {
   background-color: #60abe8;
+}
+
+.poison:hover {
+  background-color: #c08dd7;
+}
+
+.flying:hover {
+  background-color: #b3f0f7;
+}
+
+.bug:hover {
+  background-color: #c8d621;
+}
+
+.normal:hover {
+  background-color: #c8c8a8;
+}
+
+.electric:hover {
+  background-color: #f8e030;
+}
+
+.ground:hover {
+  background-color: #e0c068;
+}
+
+.fairy:hover {
+  background-color: #ee99ac;
+}
+
+.fighting:hover {
+  background-color: #c03028;
+}
+
+.psychic:hover {
+  background-color: #f85888;
+}
+
+.rock:hover {
+  background-color: #b8a038;
+}
+
+.steel:hover {
+  background-color: #b8b8d0;
+}
+
+.ice:hover {
+  background-color: #98d8d8;
+}
+
+.ghost:hover {
+  background-color: #705898;
+}
+
+.dragon:hover {
+  background-color: #7038f8;
+}
+
+.dark:hover {
+  background-color: #705848;
 }
 
 .all {
@@ -116,11 +270,11 @@ button {
 
 @media (max-width: 768px) {
   
-
+  
   .card {
     width: 100%;
   }
-
+  
   .nav {
     flex-direction: column;
   }
