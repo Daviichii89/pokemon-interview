@@ -30,8 +30,9 @@ function App() {
   const [pokemonData, setPokemonData] = useState<PokemonData[]>([])
   const [pokemonFiltered, setPokemonFiltered] = useState<PokemonData[]>([])
   const [offset, setOffset] = useState(0)
-
+  const [loading, setLoading] = useState(false)
   useEffect(() => {
+    setLoading(true)
     fetch(`https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=10`)
       .then((response) => response.json())
       .then((data) => setPokemons(data.results))
@@ -45,15 +46,22 @@ function App() {
           setPokemonFiltered(prevData => [...prevData, poke])
         })
     })
+    setLoading(false)
   }, [pokemons])
-
+  useEffect(() => {
+    const handleScroll = () => {
+        if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight || loading) return
+        setOffset(prevOffset => prevOffset + 10)
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [loading])
   const filterPokemonByType = (type: string) => {
     const filtered = pokemonData.filter((data) =>
       data.types.some((t) => t.type.name === type)
     )
     setPokemonFiltered(filtered);
   }
-
   return (
     <div className='main-container'>
       <h1>Pokemon</h1>
@@ -62,10 +70,10 @@ function App() {
         setPokemonFiltered={setPokemonFiltered}
         pokemonData={pokemonData}
       />
+    
       <ul className='container'>
         <PokemonList pokemonFiltered={pokemonFiltered} />
       </ul>
-      <button onClick={() => setOffset(offset + 10)}>Next</button>
     </div>
   )
 }
